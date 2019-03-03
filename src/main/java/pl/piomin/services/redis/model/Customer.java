@@ -2,6 +2,7 @@ package pl.piomin.services.redis.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +11,13 @@ import java.util.List;
 public class Customer {
 
     @Id private Long id;
+    @Indexed private String externalId;
     private String name;
     private List<Account> accounts = new ArrayList<>();
 
-    public Customer(Long id, String name) {
+    public Customer(Long id, String externalId, String name) {
         this.id = id;
+        this.externalId = externalId;
         this.name = name;
     }
 
@@ -24,6 +27,14 @@ public class Customer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
 
     public String getName() {
