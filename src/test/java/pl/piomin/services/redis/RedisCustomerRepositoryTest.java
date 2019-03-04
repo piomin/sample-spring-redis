@@ -17,7 +17,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @DataRedisTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RedisRepositoryTest {
+public class RedisCustomerRepositoryTest {
 
     @Autowired
     CustomerRepository repository;
