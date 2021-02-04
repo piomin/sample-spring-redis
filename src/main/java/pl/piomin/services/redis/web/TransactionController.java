@@ -23,10 +23,7 @@ public class TransactionController {
     @GetMapping("/{id}")
     public Transaction findById(Long id) {
         Optional<Transaction> optTransaction = repository.findById(id);
-        if (optTransaction.isPresent())
-            return optTransaction.get();
-        else
-            return null;
+        return optTransaction.orElse(null);
     }
 
     @GetMapping("/from/{accountId}")

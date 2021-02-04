@@ -23,10 +23,7 @@ public class CustomerController {
     @GetMapping("/{id}")
     public Customer findById(@PathVariable("id") Long id) {
         Optional<Customer> optCustomer = repository.findById(id);
-        if (optCustomer.isPresent())
-            return optCustomer.get();
-        else
-            return null;
+        return optCustomer.orElse(null);
     }
 
 }
