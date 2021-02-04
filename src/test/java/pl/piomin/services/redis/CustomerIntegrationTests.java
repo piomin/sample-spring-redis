@@ -23,19 +23,14 @@ public class CustomerIntegrationTests {
     TestRestTemplate template;
 
     @Container
-    static final GenericContainer redis = new GenericContainer("redis:5.0.3").withExposedPorts(6379);
+    static final GenericContainer redis = new GenericContainer("redis:latest")
+            .withExposedPorts(6379);
 
     @DynamicPropertySource
     static void redisProperties(DynamicPropertyRegistry registry) {
         int port = redis.getFirstMappedPort();
-        registry.add("spring.redis.host", () -> String.valueOf(port));
+        registry.add("spring.redis.port", () -> port);
     }
-
-//    @Before
-//    public void init() {
-//        int port = redis.getFirstMappedPort();
-//        System.setProperty("spring.redis.host", String.valueOf(port));
-//    }
 
     @Test
     void testAddAndFind() {
