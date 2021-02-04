@@ -1,45 +1,54 @@
 package pl.piomin.services.redis;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.piomin.services.redis.model.Account;
 import pl.piomin.services.redis.model.Customer;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@RunWith(SpringRunner.class)
+@Testcontainers
 public class CustomerIntegrationTests {
 
     @Autowired
     TestRestTemplate template;
 
-    @ClassRule
-    public static GenericContainer redis = new GenericContainer("redis:5.0.3").withExposedPorts(6379);
+    @Container
+    static final GenericContainer redis = new GenericContainer("redis:5.0.3").withExposedPorts(6379);
 
-    @Before
-    public void init() {
+    @DynamicPropertySource
+    static void redisProperties(DynamicPropertyRegistry registry) {
         int port = redis.getFirstMappedPort();
-        System.setProperty("spring.redis.host", String.valueOf(port));
+        registry.add("spring.redis.host", () -> String.valueOf(port));
     }
 
+//    @Before
+//    public void init() {
+//        int port = redis.getFirstMappedPort();
+//        System.setProperty("spring.redis.host", String.valueOf(port));
+//    }
+
     @Test
-    public void testAddAndFind() {
+    void testAddAndFind() {
+        assertTrue(redis.isRunning());
         Customer customer = new Customer(1L, "123456", "John Smith");
         customer.addAccount(new Account(1L, "1234567890", 2000));
         customer.addAccount(new Account(2L, "1234567891", 4000));
         customer = template.postForObject("/customers", customer, Customer.class);
-        Assert.assertNotNull(customer);
+        assertNotNull(customer);
         customer = template.getForObject("/customers/{id}", Customer.class, 1L);
-        Assert.assertNotNull(customer);
-        Assert.assertEquals("123456", customer.getExternalId());
-        Assert.assertEquals(2, customer.getAccounts().size());
+        assertNotNull(customer);
+        assertEquals("123456", customer.getExternalId());
+        assertEquals(2, customer.getAccounts().size());
     }
 
 }
