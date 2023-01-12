@@ -11,7 +11,7 @@ jobs:
           command: mvn verify sonar:sonar -DskipTests
 
 orbs:
-  maven: circleci/maven@1.3.0
+  maven: circleci/maven@1.4.0
 
 executors:
   machine_executor_amd64:
