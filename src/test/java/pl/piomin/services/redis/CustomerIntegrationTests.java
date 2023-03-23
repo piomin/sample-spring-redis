@@ -29,7 +29,7 @@ public class CustomerIntegrationTests {
     @DynamicPropertySource
     static void redisProperties(DynamicPropertyRegistry registry) {
         int port = redis.getFirstMappedPort();
-        registry.add("spring.redis.port", () -> port);
+        registry.add("spring.data.redis.port", () -> port);
     }
 
     @Test
