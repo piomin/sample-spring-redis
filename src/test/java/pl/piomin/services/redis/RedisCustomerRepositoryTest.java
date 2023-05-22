@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -26,14 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class RedisCustomerRepositoryTest {
 
     @Container
+    @ServiceConnection
     static final GenericContainer redis = new GenericContainer("redis:latest")
             .withExposedPorts(6379);
-
-    @DynamicPropertySource
-    static void redisProperties(DynamicPropertyRegistry registry) {
-        int port = redis.getFirstMappedPort();
-        registry.add("spring.data.redis.port", () -> port);
-    }
 
     @Autowired
     CustomerRepository repository;
