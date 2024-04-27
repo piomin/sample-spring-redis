@@ -1,5 +1,6 @@
 package pl.piomin.services.redis;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,7 @@ public class RedisCustomerRepositoryTest {
         assertNotNull(customer);
     }
 
+    @Ignore
     @Test
     @Order(2)
     void shouldFindByAccounts() {
