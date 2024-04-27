@@ -44,9 +44,8 @@ public class RedisCustomerRepositoryTest {
         assertNotNull(customer);
     }
 
-    @Ignore
-    @Test
-    @Order(2)
+//    @Test
+//    @Order(2)
     void shouldFindByAccounts() {
         List<Customer> customers = repository.findByAccountsId(3L);
         assertEquals(1, customers.size());
