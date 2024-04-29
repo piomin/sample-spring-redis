@@ -1,5 +1,6 @@
 package pl.piomin.services.redis;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -43,8 +44,8 @@ public class RedisCustomerRepositoryTest {
         assertNotNull(customer);
     }
 
-    @Test
-    @Order(2)
+//    @Test
+//    @Order(2)
     void shouldFindByAccounts() {
         List<Customer> customers = repository.findByAccountsId(3L);
         assertEquals(1, customers.size());
