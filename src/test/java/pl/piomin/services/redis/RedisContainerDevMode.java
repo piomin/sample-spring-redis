@@ -12,7 +12,7 @@ public class RedisContainerDevMode {
     @Bean
     @ServiceConnection("redis")
     GenericContainer redisContainer() {
-        return new GenericContainer(DockerImageName.parse("redis").withTag("7.0"))
+        return new GenericContainer(DockerImageName.parse("redis").withTag("8.4"))
                 .withExposedPorts(6379);
     }
 }

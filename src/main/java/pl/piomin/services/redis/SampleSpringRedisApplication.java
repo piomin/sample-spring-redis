@@ -8,8 +8,8 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @EnableRedisRepositories
 public class SampleSpringRedisApplication {
 
-    void main(String[] args) {
-        SpringApplication.run(SampleSpringRedisApplication.class, args);
+    static void main(String[] args) {
+        SpringApplication.run(SampleSpringRedisApplication.class);
     }
 
 }
