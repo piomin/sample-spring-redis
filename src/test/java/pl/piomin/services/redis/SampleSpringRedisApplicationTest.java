@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 
 public class SampleSpringRedisApplicationTest {
 
-    void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.from(SampleSpringRedisApplication::main)
                 .with(RedisContainerDevMode.class)
                 .run(args);
