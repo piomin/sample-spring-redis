@@ -1,9 +1,5 @@
 package pl.piomin.services.redis.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
@@ -12,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RedisHash("customer")
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 public class Customer {
 
     @Id private Long id;
@@ -23,14 +15,61 @@ public class Customer {
     private String name;
     private List<Account> accounts = new ArrayList<>();
 
+    public Customer() {
+    }
+
     public Customer(Long id, String externalId, String name) {
         this.id = id;
         this.externalId = externalId;
         this.name = name;
     }
 
+    public Customer(Long id, String externalId, String name, List<Account> accounts) {
+        this.id = id;
+        this.externalId = externalId;
+        this.name = name;
+        this.accounts = accounts;
+    }
+
     public void addAccount(Account account) {
         this.accounts.add(account);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer [id=" + id + ", externalId=" + externalId + ", name=" + name + ", accounts=" + accounts + "]";
     }
 
 }
