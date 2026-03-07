@@ -8,6 +8,13 @@ import java.util.List;
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     Customer findByExternalId(String externalId);
-    List<Customer> findByAccountsId(Long id);
+
+    default List<Customer> findByAccountsId(Long id) {
+        List<Customer> all = (List<Customer>) findAll();
+        return all.stream()
+                .filter(c -> c.getAccounts().stream()
+                        .anyMatch(a -> a.getId().equals(id)))
+                .toList();
+    }
 
 }

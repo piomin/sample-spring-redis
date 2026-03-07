@@ -1,6 +1,5 @@
 package pl.piomin.services.redis.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.piomin.services.redis.model.Transaction;
 import pl.piomin.services.redis.repository.TransactionRepository;
@@ -12,8 +11,11 @@ import java.util.Optional;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-    @Autowired
-    TransactionRepository repository;
+    private final TransactionRepository repository;
+
+    public TransactionController(TransactionRepository repository) {
+        this.repository = repository;
+    }
 
     @PostMapping
     public Transaction add(@RequestBody Transaction transaction) {

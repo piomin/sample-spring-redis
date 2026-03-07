@@ -1,12 +1,15 @@
 package pl.piomin.services.redis.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
+@RedisHash("account")
 public class Account {
 
-    @Indexed private Long id;
-    private String number;
-    private int balance;
+    @Id private Long id;
+    @Indexed private String number;
+    @Indexed private int balance;
 
     public Account() {
     }

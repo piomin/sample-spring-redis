@@ -1,8 +1,28 @@
 spring:
   application:
     name: sample-spring-redis
+  docker:
+    compose:
+      file: docker-compose.yml
+      lifecycle-management: start-and-stop
+      read-timeout: 1m
   data:
     redis:
       host: localhost
+      port: 6379
+
 server:
   port: 8090
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  docker:
+    compose:
+      enabled: false
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:redis}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
