@@ -1,6 +1,7 @@
 package pl.piomin.services.redis.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
@@ -13,7 +14,7 @@ public class Customer {
     @Id private Long id;
     @Indexed private String externalId;
     private String name;
-    private List<Account> accounts = new ArrayList<>();
+    @Reference private List<Account> accounts = new ArrayList<>();
 
     public Customer() {
     }
