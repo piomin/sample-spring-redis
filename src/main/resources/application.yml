@@ -1,11 +1,6 @@
 spring:
   application:
     name: sample-spring-redis
-  docker:
-    compose:
-      file: docker-compose.yml
-      lifecycle-management: start-and-stop
-      read-timeout: 1m
   data:
     redis:
       host: localhost
