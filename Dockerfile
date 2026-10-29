@@ -1,5 +1,5 @@
 # Build stage
-FROM eclipse-temurin:25.0.4_7-jdk-alpine AS builder
+FROM eclipse-temurin:25.0.5_8-jdk-alpine AS builder
 WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
@@ -8,7 +8,7 @@ COPY src ./src
 RUN ./mvnw clean package -DskipTests -B
 
 # Runtime stage
-FROM eclipse-temurin:25.0.4_7-jre-alpine
+FROM eclipse-temurin:25.0.5_8-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8090
