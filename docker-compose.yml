@@ -1,6 +1,6 @@
 services:
   redis:
-    image: redis:8.10
+    image: redis:8.12
     container_name: sample-spring-redis
     ports:
       - "6379:6379"
